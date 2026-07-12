@@ -1,0 +1,49 @@
+TOPIC
+    about_gee
+
+SHORT DESCRIPTION
+    gee adds Git tab completion and interactive workflow commands to
+    PowerShell. It ships no built-in prompt renderer - bring your
+    own (e.g. Oh My Posh).
+
+LONG DESCRIPTION
+    gee is a slim fork of posh-git focused on tab completion and
+    shortcut cmdlets. See the project README for details.
+
+    Tab completion is registered automatically for `git` and `gitk`.
+    Once the module is imported, typing `git ch<Tab>`
+    completes to git subcommands, `git checkout <Tab>` completes to
+    branch names, and so on.
+
+    Get-GitStatus returns a structured object describing the current
+    repository (branch, ahead/behind counts, staged/unstaged file
+    counts, stash count, etc.). Prompt engines like Oh My Posh
+    consume `git` directly, but you can also wire Get-GitStatus into
+    your own custom `prompt` function.
+
+CUSTOMIZATION
+    gee exposes these settings objects:
+
+        $GitTabSettings       - Tab completion behavior.
+        $GeeStatusSettings    - Get-GitStatus data-gathering
+                                behavior.
+
+    Notable $GitTabSettings properties:
+        AllCommands          - $true to complete every subcommand
+                               from `git help --all`.
+        ExcludeAliasPattern  - Regex; matching alias names are
+                               hidden from tab completion.
+
+    Notable $GeeStatusSettings properties (used by Get-GitStatus):
+        EnableFileStatus, EnableStashStatus,
+        RepositoriesInWhichToDisableFileStatus,
+        UntrackedFilesMode, DescribeStyle.
+
+    See the README for the full customization reference.
+
+SHORTCUTS
+    Run Get-GitToolsHelp (or `g-help`) to list the interactive
+    workflow cmdlets shipped with gee.
+
+SEE ALSO
+    Get-GitStatus, Get-GitToolsHelp, Add-GeeToProfile

@@ -1,0 +1,30 @@
+gee
+Copyright (c) 2024 Taylor Jordan
+
+This product is a fork of posh-git.
+    Original project: https://github.com/dahlbyk/posh-git
+    Copyright (c) 2010-2018 Keith Dahlby, Keith Hill, and contributors
+    Licensed under the MIT License. See LICENSE.txt.
+
+The tab-completion engine, Get-GitStatus data API, argument-expansion
+tables, and much of the module scaffolding are derived from the
+upstream project and remain the work of the posh-git contributors. Their commit history is preserved in this
+repository's git log; see the Contributors view on the hosting
+platform for the full list.
+
+Modifications in this fork (attributed to Taylor Jordan and any
+subsequent contributors listed in git history):
+  - Removed the built-in prompt renderer (posh-git's marquee feature).
+  - Removed TortoiseGit integration (tgit command).
+  - Removed VSTS / TFS tab-completion support.
+  - Added workflow-shortcut cmdlets (Get-GitToolsHelp, Show-GitStatus,
+    Switch-GitTrunk, Set-GitLocationRoot, New-GitBranch,
+    Switch-GitBranch, New-GitCommit, Remove-GitStaleBranch,
+    Sync-GitBranch, Remove-GitAliasCruft) with 'g-' aliases.
+  - Added tab-completion filter for probe-pattern git aliases.
+  - Modernized branch defaults (trunk/main over master).
+  - Renamed the module to 'gee'.
+
+The upstream posh-git project remains actively maintained by its
+original authors and is the recommended module for users who want
+the full prompt-rendering feature set.
