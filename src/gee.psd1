@@ -4,7 +4,7 @@
 RootModule = 'gee.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1.0.1'
+ModuleVersion = '0.2.0'
 
 # ID used to uniquely identify this module
 GUID = 'f911c4c0-1684-4c3e-9458-112fab368c37'
