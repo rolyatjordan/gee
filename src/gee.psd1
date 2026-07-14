@@ -61,9 +61,6 @@ PrivateData = @{
 
         # A URL to the license for the upstream project this is derived from.
         LicenseUri = 'https://github.com/dahlbyk/posh-git/blob/master/LICENSE.txt'
-
-        # OVERRIDE THIS FIELD FOR PUBLISHED RELEASES - LEAVE AT 'alpha' FOR CLONED/LOCAL REPO USAGE
-        Prerelease = 'alpha'
     }
 }
 }

@@ -1,5 +1,6 @@
 VERSION
 *.log
 *.nupkg
+*.zip
 obj
 .history

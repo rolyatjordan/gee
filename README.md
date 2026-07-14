@@ -113,17 +113,35 @@ The `Add-GeeToProfile` cmdlet writes `Import-Module gee` into your current-user 
 
 Use `-AllHosts` to add it to `$profile.CurrentUserAllHosts` (available across console, ISE, VS Code, etc.), or `-AllUsers -AllHosts` to install for every user on the machine (requires elevation).
 
+### Building a release (maintainers)
+
+`build.ps1` at the repo root packages the module for a GitHub Release. It rewrites the version, validates the manifest, and produces `gee.zip` with `gee.psd1` at the archive root (the layout the install block above expects):
+
+```powershell
+.\build.ps1 -Version 1.1.1
+```
+
+Then attach the zip to a release — the asset **must** be named `gee.zip`, because the install URL points at `releases/latest/download/gee.zip`:
+
+```powershell
+gh release create v1.1.1 .\gee.zip --title "v1.1.1" --notes "..."
+```
+
+Run `.\build.ps1` with no arguments to package the current manifest as-is (a local smoke test), or add `-WhatIf` to preview without writing anything. The built `gee.zip` is git-ignored. Tests are run by CI (Pester) on every push and PR.
+
 ## Using gee
 
 ### Tab completion
 
-Once imported, `git <Tab>` offers subcommands, `git checkout <Tab>` offers branch names, and so on. For a nicer experience on Windows PowerShell 5.x, bind Tab to menu-style completion:
+Once imported, `git <Tab>` offers subcommands, `git checkout <Tab>` offers branch names, and so on. This completer is registered automatically when the module loads — no profile entry is required beyond importing `gee`.
+
+For a nicer experience on Windows PowerShell 5.x, bind Tab to menu-style completion:
 
 ```powershell
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 ```
 
-Add that to your profile if you want it permanent.
+This is a PSReadLine key binding, not part of `gee` — the module does **not** set it for you, and neither does `Add-GeeToProfile`. Run on its own it lasts only for the current session; to make it permanent, add the line to your PowerShell profile (`notepad $PROFILE`).
 
 ### Consuming git status from your prompt engine
 

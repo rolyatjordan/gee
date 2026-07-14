@@ -1,0 +1,61 @@
+<#
+.SYNOPSIS
+Builds the gee release zip from src/, optionally bumping the module version.
+
+.DESCRIPTION
+Packages the module files under src/ into a zip whose root contains gee.psd1 -
+the layout the README install block expects (the archive is extracted straight
+into ...\PowerShell\Modules\gee, so gee.psd1 must sit at the archive root, not
+under a src/ folder). Optionally rewrites ModuleVersion in the manifest. Always
+validates the manifest with Test-ModuleManifest before packaging. Runs from the
+repo root regardless of your current location.
+
+.PARAMETER Version
+New value for ModuleVersion in src/gee.psd1 (e.g. 1.1.1). Left unchanged if omitted.
+
+.PARAMETER OutputPath
+Where to write the zip. Defaults to gee.zip in the repo root.
+
+.EXAMPLE
+.\build.ps1 -Version 1.1.1
+Bumps to 1.1.1, validates the manifest, and writes gee.zip.
+
+.EXAMPLE
+.\build.ps1
+Packages the current manifest as-is (handy for a local smoke test).
+#>
+[CmdletBinding(SupportsShouldProcess)]
+param(
+    [string]$Version,
+    [string]$OutputPath = (Join-Path $PSScriptRoot 'gee.zip')
+)
+
+$ErrorActionPreference = 'Stop'
+
+$manifestPath = Join-Path $PSScriptRoot 'src\gee.psd1'
+$sourceGlob = Join-Path $PSScriptRoot 'src\*'
+
+if ($Version) {
+    $content = Get-Content -Path $manifestPath -Raw
+    if ($content -notmatch "(?m)^(\s*ModuleVersion\s*=\s*)'[^']*'") {
+        throw "Could not find a ModuleVersion entry in $manifestPath."
+    }
+    $content = $content -replace "(?m)^(\s*ModuleVersion\s*=\s*)'[^']*'", "`${1}'$Version'"
+    Write-Host "ModuleVersion -> $Version" -ForegroundColor Cyan
+
+    if ($PSCmdlet.ShouldProcess($manifestPath, 'Update manifest')) {
+        # WriteAllText keeps UTF-8 (no BOM) and the existing line endings, so the
+        # edit stays a minimal diff rather than reflowing the whole manifest the
+        # way Update-ModuleManifest would (which also strips the file's comments).
+        [System.IO.File]::WriteAllText($manifestPath, $content)
+    }
+}
+
+$manifest = Test-ModuleManifest -Path $manifestPath
+Write-Host "Manifest OK: gee $($manifest.Version)" -ForegroundColor Green
+
+if ($PSCmdlet.ShouldProcess($OutputPath, 'Build release zip')) {
+    Compress-Archive -Path $sourceGlob -DestinationPath $OutputPath -Force
+    Write-Host "Built $OutputPath" -ForegroundColor Green
+    Write-Host "Next: gh release create v$($manifest.Version) `"$OutputPath`" --title `"v$($manifest.Version)`"" -ForegroundColor DarkGray
+}
