@@ -26,6 +26,7 @@ FunctionsToExport = @(
     'Add-GeeToProfile',
     'Expand-GitCommand',
     'Get-GitDirectory',
+    'Get-GitHealth',
     'Get-GitStatus',
     'Get-GitToolsHelp',
     'New-GitBranch',
@@ -49,7 +50,7 @@ CmdletsToExport = @()
 VariablesToExport = @()
 
 # Aliases to export from this module
-AliasesToExport = @('g-help', 'g-status', 'g-trunk', 'g-root', 'g-new', 'g-switch', 'g-commit', 'g-prune', 'g-sync', 'g-clean-aliases')
+AliasesToExport = @('g-help', 'g-status', 'g-trunk', 'g-root', 'g-new', 'g-switch', 'g-commit', 'g-prune', 'g-sync', 'g-health', 'g-clean-aliases')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess.
 # This may also contain a PSData hashtable with additional module metadata used by PowerShell.

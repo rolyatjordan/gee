@@ -17,8 +17,9 @@ Import the module and run `Get-GitToolsHelp` (or `g-help`) to see the shortcut l
 | `g-new`           | `New-GitBranch`        | Create a branch                                                            |
 | `g-switch`        | `Switch-GitBranch`     | Switch to a branch (with tab-complete)                                     |
 | `g-commit`        | `New-GitCommit`        | Commit with a message                                                      |
-| `g-prune`         | `Remove-GitStaleBranch`| Delete local branches whose origin tracking branch is gone                 |
+| `g-prune`         | `Remove-GitStaleBranch`| Delete stale branches (upstream gone); auto-cleans merged ones incl. squash-merges, `-Force` for unmerged |
 | `g-sync`          | `Sync-GitBranch`       | Pull then push, or set an upstream on first push                           |
+| `g-health`        | `Get-GitHealth`        | Repo health: each branch's ahead/behind vs `origin/trunk`, stash count, stale/gone flags, cleanup tips |
 | `g-clean-aliases` | `Remove-GitAliasCruft` | Remove `alias.test-<GUID>` probes some tools leave in your global gitconfig |
 
 `Get-GitStatus` remains available as the structured status data API for anyone who wants to consume git repo state programmatically.
@@ -51,6 +52,7 @@ Set-GeeAliases -CustomAliases @{
     'my-commit' = 'New-GitCommit'
     'my-prune'  = 'Remove-GitStaleBranch'
     'my-sync'   = 'Sync-GitBranch'
+    'my-health' = 'Get-GitHealth'
     'my-clean'  = 'Remove-GitAliasCruft'
 }
 ```

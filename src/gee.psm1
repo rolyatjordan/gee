@@ -25,6 +25,7 @@ $exportModuleMemberParams = @{
         'Add-GeeToProfile',
         'Expand-GitCommand',
         'Get-GitDirectory',
+        'Get-GitHealth',
         'Get-GitStatus',
         'Get-GitToolsHelp',
         'New-GitBranch',
