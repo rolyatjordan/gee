@@ -4,6 +4,28 @@
 module, and setting names have changed in the fork — see [README.md](README.md)
 for the current source of truth.
 
+## 0.2.1 - 2026-07-29
+
+### Added
+
+- `CompatiblePSEditions = @('Core', 'Desktop')` in the manifest, so the module advertises PowerShell 7 support explicitly.
+- `build.ps1` now packages `LICENSE.txt` and `NOTICE` at the archive root, so every distributed copy carries the attribution the MIT license requires. A missing license file fails the build rather than producing a silently thinner zip.
+- README now states the requirements up front: Git 2.15+, and either Windows PowerShell 5.1 or PowerShell 7+ (`pwsh`, required on macOS/Linux).
+
+### Fixed
+
+- `Get-PSModulePath` split `$Env:PSModulePath` on a hard-coded `;`, so module-path discovery found nothing on macOS/Linux. It now splits on `[System.IO.Path]::PathSeparator`.
+- `install.ps1` built its manifest path with hard-coded backslashes; it now uses `Join-Path`.
+- `LICENSE.txt` now asserts the fork's copyright alongside the upstream posh-git notice, which it retains.
+- Corrected the copyright year in `NOTICE` (2024 -> 2026) and the upstream year range in the manifest (`2010-2021` -> `2010-2018`, matching `LICENSE.txt`).
+- `LicenseUri` in the manifest pointed at upstream posh-git's license; it now points at this repository's `LICENSE.txt`.
+
+### Changed
+
+- Raised `PowerShellVersion` from `5.0` to `5.1` — the floor the module actually supports.
+- Both CI workflows now trigger on `trunk` rather than `master`.
+- Removed editor configuration and funding metadata inherited from upstream posh-git.
+
 ## 0.2.0 - 2026-07-14
 
 ### Added

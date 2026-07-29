@@ -6,9 +6,11 @@ Builds the gee release zip from src/, optionally bumping the module version.
 Packages the module files under src/ into a zip whose root contains gee.psd1 -
 the layout the README install block expects (the archive is extracted straight
 into ...\PowerShell\Modules\gee, so gee.psd1 must sit at the archive root, not
-under a src/ folder). Optionally rewrites ModuleVersion in the manifest. Always
-validates the manifest with Test-ModuleManifest before packaging. Runs from the
-repo root regardless of your current location.
+under a src/ folder). LICENSE.txt and NOTICE ride along at the archive root so
+every distributed copy carries the attribution the MIT license requires.
+Optionally rewrites ModuleVersion in the manifest. Always validates the manifest
+with Test-ModuleManifest before packaging. Runs from the repo root regardless of
+your current location.
 
 .PARAMETER Version
 New value for ModuleVersion in src/gee.psd1 (e.g. 1.1.1). Left unchanged if omitted.
@@ -35,6 +37,16 @@ $ErrorActionPreference = 'Stop'
 $manifestPath = Join-Path $PSScriptRoot 'src\gee.psd1'
 $sourceGlob = Join-Path $PSScriptRoot 'src\*'
 
+# MIT requires the copyright and permission notice travel with every copy, so a
+# missing license file is a hard build failure rather than a silently thinner zip.
+$licenseFiles = @('LICENSE.txt', 'NOTICE') | ForEach-Object {
+    $path = Join-Path $PSScriptRoot $_
+    if (-not (Test-Path -LiteralPath $path)) {
+        throw "Required license file not found: $path"
+    }
+    $path
+}
+
 if ($Version) {
     $content = Get-Content -Path $manifestPath -Raw
     if ($content -notmatch "(?m)^(\s*ModuleVersion\s*=\s*)'[^']*'") {
@@ -55,7 +67,7 @@ $manifest = Test-ModuleManifest -Path $manifestPath
 Write-Host "Manifest OK: gee $($manifest.Version)" -ForegroundColor Green
 
 if ($PSCmdlet.ShouldProcess($OutputPath, 'Build release zip')) {
-    Compress-Archive -Path $sourceGlob -DestinationPath $OutputPath -Force
+    Compress-Archive -Path (@($sourceGlob) + $licenseFiles) -DestinationPath $OutputPath -Force
     Write-Host "Built $OutputPath" -ForegroundColor Green
     Write-Host "Next: gh release create v$($manifest.Version) `"$OutputPath`" --title `"v$($manifest.Version)`"" -ForegroundColor DarkGray
 }

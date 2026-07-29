@@ -4,7 +4,7 @@
 RootModule = 'gee.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '0.2.1'
 
 # ID used to uniquely identify this module
 GUID = 'f911c4c0-1684-4c3e-9458-112fab368c37'
@@ -13,7 +13,7 @@ GUID = 'f911c4c0-1684-4c3e-9458-112fab368c37'
 Author = 'Taylor Jordan (fork). Original: Keith Dahlby, Keith Hill, and contributors'
 
 # Copyright statement for this module
-Copyright = '(c) 2010-2021 Keith Dahlby, Keith Hill, and contributors'
+Copyright = '(c) 2010-2018 Keith Dahlby, Keith Hill, and contributors; (c) 2026 Taylor Jordan'
 
 # Description of the functionality provided by this module
 Description = 'gee: Git tab completion and workflow shortcuts for PowerShell. Bring your own prompt.'
@@ -62,8 +62,8 @@ PrivateData = @{
         # Tags applied to this module. These help with module discovery in online galleries.
         Tags = @('git', 'tab', 'tab-completion', 'tab-expansion', 'tabexpansion', 'PSEdition_Core')
 
-        # A URL to the license for the upstream project this is derived from.
-        LicenseUri = 'https://github.com/dahlbyk/posh-git/blob/master/LICENSE.txt'
+        # A URL to this module's license, which retains the upstream posh-git copyright.
+        LicenseUri = 'https://github.com/rolyatjordan/gee/blob/trunk/LICENSE.txt'
     }
 }
 }

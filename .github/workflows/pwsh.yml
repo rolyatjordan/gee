@@ -2,9 +2,9 @@ name: PowerShell Core
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, trunk ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, trunk ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
