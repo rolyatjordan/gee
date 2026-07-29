@@ -394,7 +394,7 @@ function Get-PathStringComparison {
 }
 
 function Get-PSModulePath {
-    $modulePaths = $Env:PSModulePath -split ';'
+    $modulePaths = $Env:PSModulePath -split [System.IO.Path]::PathSeparator
     $modulePaths
 }
 

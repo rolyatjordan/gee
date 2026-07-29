@@ -19,7 +19,10 @@ Copyright = '(c) 2010-2021 Keith Dahlby, Keith Hill, and contributors'
 Description = 'gee: Git tab completion and workflow shortcuts for PowerShell. Bring your own prompt.'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '5.0'
+PowerShellVersion = '5.1'
+
+# PowerShell editions this module is compatible with
+CompatiblePSEditions = @('Core', 'Desktop')
 
 # Functions to export from this module
 FunctionsToExport = @(

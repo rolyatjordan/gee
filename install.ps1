@@ -2,5 +2,5 @@ param([switch]$WhatIf = $false, [switch]$Force = $false, [switch]$Verbose = $fal
 
 $installDir = Split-Path $MyInvocation.MyCommand.Path -Parent
 
-Import-Module $installDir\src\gee.psd1
+Import-Module (Join-Path $installDir 'src' 'gee.psd1')
 Add-GeeToProfile -WhatIf:$WhatIf -Force:$Force -Verbose:$Verbose

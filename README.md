@@ -4,6 +4,9 @@
 
 > Forked from [dahlbyk/posh-git](https://github.com/dahlbyk/posh-git) by Keith Dahlby, Keith Hill, and contributors. See [Credits and Upstream](#credits-and-upstream) at the bottom.
 
+> **Requirements:** Git 2.15+, and either **Windows PowerShell 5.1** (Windows) or
+> **PowerShell 7+** (`pwsh`, required on macOS/Linux).
+
 ## Workflow Shortcuts
 
 Import the module and run `Get-GitToolsHelp` (or `g-help`) to see the shortcut list at any time.
